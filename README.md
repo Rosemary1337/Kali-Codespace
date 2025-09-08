@@ -33,16 +33,16 @@ RUN apt update && apt install -y \
     ca-certificates build-essential sudo \
     && apt clean
 
-RUN useradd -ms /bin/bash kidd && echo "kidd:kali" | chpasswd && adduser kidd sudo
-RUN echo "kidd ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+RUN useradd -ms /bin/bash rosemary && echo "rosemary:kali" | chpasswd && adduser rosemary sudo
+RUN echo "rosemary ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-USER kidd
-WORKDIR /home/kidd
+USER rosemary
+WORKDIR /home/rosemary
 
 CMD ["/bin/bash"]' > Dockerfile
 ```
 
-**Notes:** Root password for `kidd` is `kali`.
+**Notes:** Root password for `rosemary` is `kali`.
 
 ---
 
@@ -58,7 +58,7 @@ services:
     tty: true
     stdin_open: true
     volumes:
-      - kali-data:/home/kidd
+      - kali-data:/home/
 
 volumes:
   kali-data:' > docker-compose.yml
@@ -96,7 +96,7 @@ docker exec -it kali-cs /bin/bash
 
 * Codespaces containers stop after idle.
 * Save important files in volume (`kali-data`) or repository.
-* Default user: `kidd`, root password: `kali`.
+* Default user: `rosemary`, root password: `kali`.
 
 ---
 
